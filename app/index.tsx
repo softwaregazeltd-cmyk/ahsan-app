@@ -1,8 +1,13 @@
 import { Redirect } from "expo-router";
-import { ROLE } from "../src/role";
+import { ActivityIndicator, View } from "react-native";
+import { useAuth } from "../src/auth";
 
 export default function Index() {
-  if (ROLE === "client") return <Redirect href="/(public)/home" />; // client portal later
-  if (ROLE === "admin") return <Redirect href="/(public)/home" />;  // admin panel later
+  const { role, loading } = useAuth();
+  if (loading) return <View style={{ flex: 1, justifyContent: "center" }}><ActivityIndicator /></View>;
+
+  // For now, client + admin both land on public tabs; we'll point these at
+  // the portal/admin areas when we build them.
+  
   return <Redirect href="/(public)/home" />;
 }
