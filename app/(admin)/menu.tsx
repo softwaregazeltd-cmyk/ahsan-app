@@ -12,6 +12,8 @@ export default function AdminMenu() {
       <Text style={s.h1}>Menu</Text>
       <Text style={s.sub}>Clients, earnings, and content controllers live here — built in 5B-2 and 5B-4.</Text>
       <View style={{ height: 24 }} />
+      <Button label="Clients" onPress={() => router.push("/(admin)/clients")} />
+      <View style={{ height: 10 }} />
       <Button label="Log out" variant="ghost" onPress={logout} />
     </ScrollView>
   );

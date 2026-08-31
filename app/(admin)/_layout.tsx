@@ -24,6 +24,9 @@ export default function AdminTabs() {
       <Tabs.Screen name="projects" options={{ title: "Projects", tabBarIcon: ({ color, size }) => <Ionicons name="folder-outline" size={size} color={color} /> }} />
       <Tabs.Screen name="invoices" options={{ title: "Invoices", tabBarIcon: ({ color, size }) => <Ionicons name="receipt-outline" size={size} color={color} /> }} />
       <Tabs.Screen name="menu" options={{ title: "Menu", tabBarIcon: ({ color, size }) => <Ionicons name="menu-outline" size={size} color={color} /> }} />
+      <Tabs.Screen name="clients" options={{ href: null }} />
+      <Tabs.Screen name="client-new" options={{ href: null }} />
+      <Tabs.Screen name="client-detail" options={{ href: null }} />
     </Tabs>
   );
 }
