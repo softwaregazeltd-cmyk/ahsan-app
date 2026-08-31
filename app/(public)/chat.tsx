@@ -39,7 +39,7 @@ export default function Chat() {
           Rahatul will review your request and open the chat shortly. You'll get a notification the moment it opens.
         </Text>
         <View style={{ height: 16 }} />
-        <Pill label="Awaiting approval" tone="amber" />
+        <Pill label="Awaiting approval" tone="amber" center />
       </View>
     );
   }

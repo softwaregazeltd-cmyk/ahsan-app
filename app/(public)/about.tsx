@@ -26,7 +26,7 @@ export default function About() {
         <Text style={s.name}>Rahatul Ahsan Rafi</Text>
         <Text style={s.role}>Senior WordPress Developer</Text>
         <View style={{ height: 8 }} />
-        <Pill label="Available for new projects" tone="lime" />
+        <Pill label="Available for new projects" tone="lime" center />
       </View>
 
       <Text style={s.bio}>

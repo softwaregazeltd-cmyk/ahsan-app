@@ -11,16 +11,16 @@ const tones: Record<Tone, { bg: string; fg: string }> = {
   red: { bg: colors.redSoft, fg: colors.red },
 };
 
-export function Pill({ label, tone = "primary" }: { label: string; tone?: Tone }) {
+export function Pill({ label, tone = "primary", center = false }: { label: string; tone?: Tone; center?: boolean }) {
   const t = tones[tone];
   return (
-    <View style={[styles.pill, { backgroundColor: t.bg }]}>
+    <View style={[styles.pill, { backgroundColor: t.bg, alignSelf: center ? "center" : "flex-start" }]}>
       <Text style={[styles.text, { color: t.fg }]}>{label}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  pill: { alignSelf: "flex-start", paddingHorizontal: 10, paddingVertical: 4, borderRadius: radius.pill },
+  pill: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: radius.pill },
   text: { fontFamily: "InterBold", fontSize: 11 },
 });
