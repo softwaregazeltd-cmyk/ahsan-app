@@ -9,7 +9,7 @@ import { colors, radius, spacing } from "../../src/theme/tokens";
 type Action = { icon: keyof typeof Ionicons.glyphMap; label: string; go: string };
 
 const ACTIONS: Action[] = [
-  { icon: "calculator-outline", label: "Get quote", go: "/(public)/services" },
+  { icon: "calculator-outline", label: "Get quote", go: "/(public)/quote" },
   { icon: "calendar-outline", label: "Book call", go: "/(public)/home" },
   { icon: "chatbubble-outline", label: "Live chat", go: "/(public)/chat" },
   { icon: "grid-outline", label: "See work", go: "/(public)/services" },

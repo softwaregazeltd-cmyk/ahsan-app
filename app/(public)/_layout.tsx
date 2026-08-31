@@ -35,6 +35,8 @@ export default function PublicTabs() {
       />
       {/* Pushed screen — not a tab */}
       <Tabs.Screen name="service-detail" options={{ href: null }} />
+      <Tabs.Screen name="quote" options={{ href: null }} />
+      <Tabs.Screen name="about" options={{ href: null }} />
     </Tabs>
   );
 }
