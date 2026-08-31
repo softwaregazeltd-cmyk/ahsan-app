@@ -27,6 +27,7 @@ export default function AdminTabs() {
       <Tabs.Screen name="clients" options={{ href: null }} />
       <Tabs.Screen name="client-new" options={{ href: null }} />
       <Tabs.Screen name="client-detail" options={{ href: null }} />
+      <Tabs.Screen name="project-new" options={{ href: null }} />
     </Tabs>
   );
 }
