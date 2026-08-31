@@ -10,7 +10,7 @@ type Action = { icon: keyof typeof Ionicons.glyphMap; label: string; go: string 
 
 const ACTIONS: Action[] = [
   { icon: "calculator-outline", label: "Get quote", go: "/(public)/quote" },
-  { icon: "calendar-outline", label: "Book call", go: "/(public)/home" },
+  { icon: "calendar-outline", label: "Book call", go: "/(public)/book" },
   { icon: "chatbubble-outline", label: "Live chat", go: "/(public)/chat" },
   { icon: "grid-outline", label: "See work", go: "/(public)/services" },
 ];
@@ -43,7 +43,7 @@ export default function Home() {
         <View style={{ height: 14 }} />
         <View style={s.heroBtns}>
           <View style={{ flex: 1 }}>
-            <Button label="Book a free call" onPress={() => router.push("/(public)/home")} />
+            <Button label="Book a free call" onPress={() => router.push("/(public)/book")} />
           </View>
           <View style={{ flex: 1 }}>
             <Button label="Watch intro" variant="ghost" onPress={() => router.push("/(public)/home")} />

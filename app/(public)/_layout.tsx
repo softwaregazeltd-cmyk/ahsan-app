@@ -37,6 +37,7 @@ export default function PublicTabs() {
       <Tabs.Screen name="service-detail" options={{ href: null }} />
       <Tabs.Screen name="quote" options={{ href: null }} />
       <Tabs.Screen name="about" options={{ href: null }} />
+      <Tabs.Screen name="book" options={{ href: null }} />
     </Tabs>
   );
 }

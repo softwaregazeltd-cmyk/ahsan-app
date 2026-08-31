@@ -44,7 +44,7 @@ export default function About() {
       </View>
 
       <View style={{ height: 20 }} />
-      <Button label="Book a free call" onPress={() => router.push("/(public)/chat")} />
+      <Button label="Book a free call" onPress={() => router.push("/(public)/book")} />
 
       <Text style={s.section}>Contact</Text>
       <Pressable style={s.contactRow} onPress={() => Linking.openURL("mailto:admin@rahatulahsanrafi.com")}>
