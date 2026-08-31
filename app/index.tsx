@@ -6,8 +6,11 @@ export default function Index() {
   const { role, loading } = useAuth();
   if (loading) return <View style={{ flex: 1, justifyContent: "center" }}><ActivityIndicator /></View>;
 
-  // For now, client + admin both land on public tabs; we'll point these at
-  // the portal/admin areas when we build them.
-  
+  if (role === "admin") {
+
+    return <Redirect href="/(admin)/home" />;
+  }
+  // client portal comes later; visitors + clients use public for now
+
   return <Redirect href="/(public)/home" />;
 }
