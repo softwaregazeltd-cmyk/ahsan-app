@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
-import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Button } from "../../src/components/Button";
 import { Input } from "../../src/components/Input";
 import { supabase } from "../../src/lib/supabase";
@@ -59,71 +59,82 @@ export default function ProjectNew() {
   const selected = clients.find((c) => c.id === clientId);
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.bg }} contentContainerStyle={s.wrap}>
-      <Pressable onPress={() => router.back()} style={s.backBtn}><Ionicons name="chevron-back" size={22} color={colors.ink} /></Pressable>
-      <Text style={s.h1}>New project</Text>
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: colors.bg }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={0}
+    >
+      <ScrollView
+        style={{ flex: 1, backgroundColor: colors.bg }}
+        contentContainerStyle={s.wrap}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="interactive"
+      >
+        <Pressable onPress={() => router.back()} style={s.backBtn}><Ionicons name="chevron-back" size={22} color={colors.ink} /></Pressable>
+        <Text style={s.h1}>New project</Text>
 
-      {/* Client picker */}
-      <Text style={s.label}>CLIENT</Text>
-      {clients.length === 0 ? (
-        <Text style={s.help}>No clients yet. Create one in Clients first.</Text>
-      ) : (
-        <View style={s.clientList}>
-          {clients.map((c) => (
-            <Pressable key={c.id} onPress={() => setClientId(c.id)} style={[s.clientChip, c.id === clientId && s.clientChipOn]}>
-              <Text style={[s.clientChipText, c.id === clientId && s.clientChipTextOn]}>{c.contact} — {c.company}</Text>
+        {/* Client picker */}
+        <Text style={s.label}>CLIENT</Text>
+        {clients.length === 0 ? (
+          <Text style={s.help}>No clients yet. Create one in Clients first.</Text>
+        ) : (
+          <View style={s.clientList}>
+            {clients.map((c) => (
+              <Pressable key={c.id} onPress={() => setClientId(c.id)} style={[s.clientChip, c.id === clientId && s.clientChipOn]}>
+                <Text style={[s.clientChipText, c.id === clientId && s.clientChipTextOn]}>{c.contact} — {c.company}</Text>
+              </Pressable>
+            ))}
+          </View>
+        )}
+
+        <View style={{ height: 16 }} />
+        <Input label="PROJECT NAME" placeholder="e.g. Online ordering rebuild" value={name} onChangeText={setName} />
+
+        {/* Type */}
+        <Text style={s.label}>SERVICE TYPE</Text>
+        <View style={s.wrapChips}>
+          {TYPES.map((t) => (
+            <Pressable key={t} onPress={() => setType(t)} style={[s.chip, t === type && s.chipOn]}>
+              <Text style={[s.chipText, t === type && s.chipTextOn]}>{t}</Text>
             </Pressable>
           ))}
         </View>
-      )}
 
-      <View style={{ height: 16 }} />
-      <Input label="PROJECT NAME" placeholder="e.g. Online ordering rebuild" value={name} onChangeText={setName} />
-
-      {/* Type */}
-      <Text style={s.label}>SERVICE TYPE</Text>
-      <View style={s.wrapChips}>
-        {TYPES.map((t) => (
-          <Pressable key={t} onPress={() => setType(t)} style={[s.chip, t === type && s.chipOn]}>
-            <Text style={[s.chipText, t === type && s.chipTextOn]}>{t}</Text>
-          </Pressable>
-        ))}
-      </View>
-
-      {/* Stage */}
-      <Text style={s.label}>STARTING STAGE</Text>
-      <View style={s.wrapChips}>
-        {STAGES.map((st) => (
-          <Pressable key={st} onPress={() => setStage(st)} style={[s.chip, st === stage && s.chipOn]}>
-            <Text style={[s.chipText, st === stage && s.chipTextOn]}>{st}</Text>
-          </Pressable>
-        ))}
-      </View>
-
-      {/* Milestones */}
-      <Text style={s.label}>MILESTONES</Text>
-      {miles.map((m, i) => (
-        <View key={i} style={s.mileRow}>
-          <View style={s.mileIdx}><Text style={s.mileIdxText}>{i + 1}</Text></View>
-          <TextInput value={m} onChangeText={(v) => setMile(i, v)} style={s.mileInput} placeholderTextColor={colors.muted} />
-          <Pressable onPress={() => rmMile(i)} style={s.mileRm}><Ionicons name="close" size={16} color={colors.muted} /></Pressable>
+        {/* Stage */}
+        <Text style={s.label}>STARTING STAGE</Text>
+        <View style={s.wrapChips}>
+          {STAGES.map((st) => (
+            <Pressable key={st} onPress={() => setStage(st)} style={[s.chip, st === stage && s.chipOn]}>
+              <Text style={[s.chipText, st === stage && s.chipTextOn]}>{st}</Text>
+            </Pressable>
+          ))}
         </View>
-      ))}
-      <Pressable onPress={addMile} style={s.addRow}><Ionicons name="add" size={18} color={colors.primary} /><Text style={s.addText}>Add milestone</Text></Pressable>
 
-      <View style={{ height: 12 }} />
-      <Input label="ESTIMATED COMPLETION (YYYY-MM-DD)" placeholder="2026-09-15" value={eta} onChangeText={setEta} autoCapitalize="none" />
-      <Input label="NOTES / INSTRUCTIONS · visible to client" placeholder="Priorities, what you need from them…" value={note} onChangeText={setNote} multiline style={{ height: 80, textAlignVertical: "top" }} />
+        {/* Milestones */}
+        <Text style={s.label}>MILESTONES</Text>
+        {miles.map((m, i) => (
+          <View key={i} style={s.mileRow}>
+            <View style={s.mileIdx}><Text style={s.mileIdxText}>{i + 1}</Text></View>
+            <TextInput value={m} onChangeText={(v) => setMile(i, v)} style={s.mileInput} placeholderTextColor={colors.muted} />
+            <Pressable onPress={() => rmMile(i)} style={s.mileRm}><Ionicons name="close" size={16} color={colors.muted} /></Pressable>
+          </View>
+        ))}
+        <Pressable onPress={addMile} style={s.addRow}><Ionicons name="add" size={18} color={colors.primary} /><Text style={s.addText}>Add milestone</Text></Pressable>
 
-      <View style={s.note}><Text style={s.noteText}>💬 A project chat opens for the client automatically in a later step. {selected ? `Client: ${selected.contact}` : ""}</Text></View>
-      <View style={{ height: 8 }} />
-      <Button label={busy ? "Creating…" : "Create project"} onPress={create} />
-    </ScrollView>
+        <View style={{ height: 12 }} />
+        <Input label="ESTIMATED COMPLETION (YYYY-MM-DD)" placeholder="2026-09-15" value={eta} onChangeText={setEta} autoCapitalize="none" />
+        <Input label="NOTES / INSTRUCTIONS · visible to client" placeholder="Priorities, what you need from them…" value={note} onChangeText={setNote} multiline style={{ height: 80, textAlignVertical: "top" }} />
+
+        <View style={s.note}><Text style={s.noteText}>💬 A project chat opens for the client automatically in a later step. {selected ? `Client: ${selected.contact}` : ""}</Text></View>
+        <View style={{ height: 8 }} />
+        <Button label={busy ? "Creating…" : "Create project"} onPress={create} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const s = StyleSheet.create({
-  wrap: { padding: spacing.xl, paddingTop: 60, paddingBottom: 40 },
+  wrap: { padding: spacing.xl, paddingTop: 60, paddingBottom: 240 },
   backBtn: { width: 38, height: 38, borderRadius: 12, borderWidth: 1, borderColor: colors.line, alignItems: "center", justifyContent: "center", marginBottom: 16 },
   h1: { fontFamily: "JakartaBold", fontSize: 24, color: colors.ink, marginBottom: 16 },
   label: { fontFamily: "InterBold", fontSize: 12, color: colors.muted, textTransform: "uppercase", letterSpacing: 0.5, marginTop: 18, marginBottom: 10 },

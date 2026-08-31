@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Avatar } from "../../src/components/Avatar";
 import { Button } from "../../src/components/Button";
@@ -14,17 +14,17 @@ export default function ClientDetail() {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-
-      const { data: client, error: cErr } = await supabase
-        .from("clients").select("*").eq("id", id).maybeSingle();
-      const { data: projs } = await supabase.from("projects").select("*").eq("client_id", id);
-      setC(client ?? null);
-      setProjects(projs ?? []);
-      setLoading(false);
-    })();
-  }, [id]);
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        const { data: client } = await supabase.from("clients").select("*").eq("id", id).maybeSingle();
+        const { data: projs } = await supabase.from("projects").select("*").eq("client_id", id).order("created_at", { ascending: false });
+        setC(client ?? null);
+        setProjects(projs ?? []);
+        setLoading(false);
+      })();
+    }, [id])
+  );
 
   if (loading) {
     return <View style={s.center}><ActivityIndicator color={colors.primary} /></View>;
