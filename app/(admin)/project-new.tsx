@@ -3,6 +3,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Button } from "../../src/components/Button";
+import { DateField } from "../../src/components/DateField";
 import { Input } from "../../src/components/Input";
 import { supabase } from "../../src/lib/supabase";
 import { colors, radius, spacing } from "../../src/theme/tokens";
@@ -122,7 +123,7 @@ export default function ProjectNew() {
         <Pressable onPress={addMile} style={s.addRow}><Ionicons name="add" size={18} color={colors.primary} /><Text style={s.addText}>Add milestone</Text></Pressable>
 
         <View style={{ height: 12 }} />
-        <Input label="ESTIMATED COMPLETION (YYYY-MM-DD)" placeholder="2026-09-15" value={eta} onChangeText={setEta} autoCapitalize="none" />
+        <DateField label="ESTIMATED COMPLETION" value={eta} onChange={setEta} placeholder="Pick a completion date" />
         <Input label="NOTES / INSTRUCTIONS · visible to client" placeholder="Priorities, what you need from them…" value={note} onChangeText={setNote} multiline style={{ height: 80, textAlignVertical: "top" }} />
 
         <View style={s.note}><Text style={s.noteText}>💬 A project chat opens for the client automatically in a later step. {selected ? `Client: ${selected.contact}` : ""}</Text></View>

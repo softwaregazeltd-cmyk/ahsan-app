@@ -3,6 +3,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Button } from "../../src/components/Button";
+import { DateField } from "../../src/components/DateField";
 import { supabase } from "../../src/lib/supabase";
 import { colors, radius, spacing } from "../../src/theme/tokens";
 
@@ -118,8 +119,7 @@ export default function InvoiceNew() {
           </Pressable>
         ))}
 
-        <Text style={s.label}>DUE DATE (YYYY-MM-DD)</Text>
-        <TextInput value={due} onChangeText={setDue} placeholder="2026-09-15" placeholderTextColor={colors.muted} autoCapitalize="none" style={[s.input, { width: 160 }]} />
+        <DateField label="DUE DATE" value={due} onChange={setDue} placeholder="Pick a due date" />
 
         <View style={s.totalBox}>
           <View style={s.totalRow}><Text style={s.tK}>Subtotal</Text><Text style={s.tV}>{money(subtotal)}</Text></View>
