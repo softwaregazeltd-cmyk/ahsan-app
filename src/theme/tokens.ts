@@ -16,6 +16,8 @@ export const colors = {
     red: "#E0563E",
     redSoft: "#FBE7E2",
     white: "#FFFFFF",
+    blue: "#2E74E8",
+    blueSoft: "#E5EEFC",
   };
   
   export const spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 };
