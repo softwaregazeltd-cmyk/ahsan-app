@@ -31,6 +31,7 @@ export default function AdminTabs() {
       <Tabs.Screen name="project-detail" options={{ href: null }} />
       <Tabs.Screen name="invoice-new" options={{ href: null }} />
       <Tabs.Screen name="invoice-detail" options={{ href: null }} />
+      <Tabs.Screen name="chat-thread" options={{ href: null }} />
     </Tabs>
   );
 }
